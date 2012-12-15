@@ -1,12 +1,18 @@
 'use strict';
 
 var esprima = require('esprima')
+  , assert = require('assert')
   , util = require('util')
   , syntax = esprima.Syntax
   , parse  = esprima.parse
+  , format = util.format
   , esprimaOpts = {
         range: true
       , raw: true
+    }
+  , options = {
+      quote: '\'',
+      style: 'var'
     }
   ;
 
@@ -63,7 +69,27 @@ function getWrapper(ast) {
   return wrappers.length ? wrappers[0] : null;
 }
 
+function generateHead(wrapper) {
+  var requires = [];
+
+  assert(wrapper.paths.length === wrapper.params.length, 'number of paths should match number of parameters to callback');
+
+  for (var i = 0; i < wrapper.paths.length; i++) 
+    requires.push(format('%s = require(%s%s%s)', wrapper.params[i], options.quote, wrapper.paths[i], options.quote));
+
+  var head;
+  switch (options.style) {
+    case 'var': head = requires.map(function (r) {
+      return 'var ' + r + ';';  
+    }).join('\n');
+  }
+  return head;
+}
+
 var wrapper = getWrapper(ast);
-inspect(wrapper);
+var head = generateHead(wrapper);
+console.log(head);
+//inspect(wrapper);
+
 
 
