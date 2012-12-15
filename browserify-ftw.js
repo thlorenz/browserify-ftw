@@ -11,14 +11,14 @@ var esprima = require('esprima')
       , raw: true
     }
   , options = {
-      quote: '\'',
-      style: 'var'
+        quote: '\''
+      , style: 'var'
+      , indent: 2
     }
   ;
 
 var reqjs = 
-"define([ 'director' ], function (director) { return 1; })";
-
+"define([ 'director' ], function (director) {  return 1; })";
 
 var ast = parse(reqjs, esprimaOpts);
 
@@ -94,14 +94,24 @@ function removeRequirejs(code, head, tail) {
   return top + mid + bot;
 }
 
+function indentRegexp(indent) {
+  for (var i = 1, spaces = ' '; i < indent; i++) spaces += ' ';
+  return new RegExp('^' + spaces);
+}
+
+function fixIndent(line, regex) {
+  return line.replace(regex, '');
+}
+
 var wrapper = getWrapper(ast);
 var head = generateHead(wrapper);
 var bare = removeRequirejs(reqjs, wrapper.head, wrapper.tail);
+var regex = indentRegexp(options.indent);
 
-var requirefied = head + '\n' + bare;
+var properlyIndented = bare
+  .split('\n')
+  .map(function (x) { return fixIndent(x, regex); } )
+  .join('\n');
+
+var requirefied = head + '\n' + properlyIndented;
 console.log(requirefied);
-
-//inspect(wrapper);
-
-
-
