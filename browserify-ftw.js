@@ -3,6 +3,7 @@
 var getWrapper = require('./lib/get-wrapper')
   , requirefy = require('./lib/requirefy')
   , exportify = require('./lib/exportify')
+  , style = require('./lib/style')
   , util = require('util')
   , options = {
         quote: '\''
@@ -30,6 +31,7 @@ var wrapper;
 
 wrapper = getWrapper(code, true);
 var exportified = exportify(code, wrapper.return, options);
+inspect(wrapper.return);
 
 wrapper = getWrapper(exportified, false);
 var requirefied = requirefy(exportified, options);
