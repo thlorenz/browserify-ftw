@@ -61,8 +61,8 @@ function getWrapper(ast) {
         , paths: paths
         , params: params
         , body: fn.body.body
-        , head: { start: expression.range[0], end: fn.body.range[0] }
-        , tail: { start: fn.body.range[1],    end: expression.range[1] }
+        , head: { start: expression.range[0], end: fn.body.range[0] + 1 }
+        , tail: { start: fn.body.range[1] - 1,    end: expression.range[1] }
       };
     })
     .filter(function (x) { return x; });
@@ -86,9 +86,21 @@ function generateHead(wrapper) {
   return head;
 }
 
+function removeRequirejs(code, head, tail) {
+  var top = reqjs.substring(0, head.start);
+  var mid = reqjs.substring(head.end, tail.start);
+  var bot = reqjs.substring(tail.end);
+
+  return top + mid + bot;
+}
+
 var wrapper = getWrapper(ast);
 var head = generateHead(wrapper);
-console.log(head);
+var bare = removeRequirejs(reqjs, wrapper.head, wrapper.tail);
+
+var requirefied = head + '\n' + bare;
+console.log(requirefied);
+
 //inspect(wrapper);
 
 
