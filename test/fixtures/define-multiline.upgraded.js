@@ -1,10 +1,10 @@
-var director = require('director');
-var github = require('github-index');
-var blog = require('blog-index');
-var about = require('about-index');
-var githubContent = require('github-content');
-var blogContent = require('blog-content');
-var aboutContent = require('about-content');
+var director = require('./resolved/director');
+var github = require('./resolved/github-index');
+var blog = require('./resolved/blog-index');
+var about = require('./resolved/about-index');
+var githubContent = require('./resolved/github-content');
+var blogContent = require('./resolved/blog-content');
+var aboutContent = require('./resolved/about-content');
  
 var currentNav = null
   , navs = {

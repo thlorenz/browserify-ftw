@@ -1,4 +1,4 @@
-var director = require('director');
+var director = require('./resolved/director');
 
 function someFunctionDefinedBeforeWrapper() {
   console.log('hello world');

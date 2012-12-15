@@ -1,4 +1,4 @@
-var director = require('director');
+var director = require('./resolved/director');
  
 var currentNav = null
   , navs = {
