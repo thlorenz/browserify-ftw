@@ -64,6 +64,27 @@ function getWrapper(ast) {
   return wrappers.length ? wrappers[0] : null;
 }
 
+function getReturnStatement(body) {
+  // only finds top level return statements (i.e. only one)
+  // no conditional returns are (i.e. inside if/else block) are considered
+  var returns = body
+    .map(function (node) {
+      if (node.type !== syntax.ReturnStatement) return null;
+      
+      var arg = node.argument;
+      if (!arg) return null;
+
+      return {
+          argument: { type: arg.type, start: arg.range[0], end: arg.range[1] }
+        , start: node.range[0]
+        , end: node.range[1]
+      };
+    })
+    .filter(function (x) { return x; });
+
+  return returns.length ? returns[0] : null;
+}
+
 function generateHead(wrapper) {
   var requires = [];
 
@@ -117,4 +138,8 @@ var properlyIndented = bare
   .join('\n');
 
 var requirefied = head + '\n' + properlyIndented;
-console.log(requirefied);
+
+
+
+var returnStmt = getReturnStatement(wrapper.body);
+inspect(returnStmt);
