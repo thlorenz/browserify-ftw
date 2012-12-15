@@ -1,9 +1,6 @@
 'use strict';
 
-var getWrapper = require('./lib/get-wrapper')
-  , requirefy = require('./lib/requirefy')
-  , exportify = require('./lib/exportify')
-  , style = require('./lib/style')
+var upgrade = require('./lib/upgrade')
   , util = require('util')
   , options = {
         quote: '\''
@@ -20,20 +17,6 @@ var fs = require('fs');
 
 var code = fs.readFileSync('./test/fixtures/define-multiline.js', 'utf-8');
 
-/*
- * Need to parse AST twice, since ranges go out of sync everytime we modify the code
- * 1. Parse code, find return statement inside requirejs wrapper and replace with assignment to module.exports
- *    This needs to happen before removing the wrapper since requirejs considers returns on script level to be illegal.
- * 2. Parse resulting code, find and replace requirejs wrapper with appropriate requirejs statements
- */
+var upgraded = upgrade(code, options, function (p) { return p; });
 
-var wrapper;
-
-wrapper = getWrapper(code, true);
-var exportified = exportify(code, wrapper.return, options);
-inspect(wrapper.return);
-
-wrapper = getWrapper(exportified, false);
-var requirefied = requirefy(exportified, options);
-
-console.log(requirefied);
+console.log(upgraded);
