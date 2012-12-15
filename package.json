@@ -1,0 +1,19 @@
+{
+  "name": "browserify-ftw",
+  "version": "0.0.0",
+  "description": "Move your app from requirejs to browserify using an automated refactor.",
+  "main": "browserify-ftw.js",
+  "scripts": {
+    "test": "tap test"
+  },
+  "repository": "",
+  "keywords": [
+    "browserify",
+    "refactor"
+  ],
+  "author": "Thorsten Lorenz <thlorenz@gmx.de> (thlorenz.com)",
+  "license": "MIT",
+  "dependencies": {
+    "esprima": "~1.0.2"
+  }
+}
