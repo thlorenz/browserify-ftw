@@ -4,7 +4,7 @@
   "description": "Move your app from requirejs to browserify using an automated refactor.",
   "main": "browserify-ftw.js",
   "scripts": {
-    "test": "tap test"
+    "test": "tap ./test/*.js"
   },
   "repository": "",
   "keywords": [
@@ -15,5 +15,9 @@
   "license": "MIT",
   "dependencies": {
     "esprima": "~1.0.2"
+  },
+  "devDependencies": {
+    "tap": "~0.3.3",
+    "cardinal": "~0.3.1"
   }
 }

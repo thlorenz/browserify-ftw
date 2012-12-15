@@ -15,7 +15,7 @@ function inspect(obj, depth) {
 
 var fs = require('fs');
 
-var code = fs.readFileSync('./test/fixtures/define-multiline.js', 'utf-8');
+var code = fs.readFileSync('./test/fixtures/define-function-after.js', 'utf-8');
 
 var upgraded = upgrade(code, options, function (p) { return p; });
 
