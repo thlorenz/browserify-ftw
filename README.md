@@ -1,4 +1,4 @@
-# browserify-ftw
+# browserify-ftw [![build status](https://secure.travis-ci.org/thlorenz/browserify-ftw.png)](http://travis-ci.org/thlorenz/browserify-ftw)
 
 Discovered [browserify](https://github.com/substack/node-browserify) too late and/or want to use common code on server
 and client?
