@@ -17,11 +17,6 @@ var esprima = require('esprima')
     }
   ;
 
-var reqjs = 
-"define([ 'director' ], function (director) {  return 1; })";
-
-var ast = parse(reqjs, esprimaOpts);
-
 function inspect(obj, depth) {
   console.log(util.inspect(obj, false, depth || 5, true));
 }
@@ -61,8 +56,8 @@ function getWrapper(ast) {
         , paths: paths
         , params: params
         , body: fn.body.body
-        , head: { start: expression.range[0], end: fn.body.range[0] + 1 }
-        , tail: { start: fn.body.range[1] - 1,    end: expression.range[1] }
+        , head: { start: expression.range[0],   end: fn.body.range[0] + 1 }
+        , tail: { start: fn.body.range[1] - 1,  end: expression.range[1] + 1 }
       };
     })
     .filter(function (x) { return x; });
@@ -102,6 +97,14 @@ function indentRegexp(indent) {
 function fixIndent(line, regex) {
   return line.replace(regex, '');
 }
+
+var fs = require('fs');
+
+var reqjs = fs.readFileSync('./test/fixtures/define-multiline.js', 'utf-8');
+
+//"define([ 'director' ], function (director) {  return 1; })";
+
+var ast = parse(reqjs, esprimaOpts);
 
 var wrapper = getWrapper(ast);
 var head = generateHead(wrapper);
