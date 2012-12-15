@@ -29,7 +29,7 @@ var code = fs.readFileSync('./test/fixtures/define-multiline.js', 'utf-8');
 var wrapper;
 
 wrapper = getWrapper(code, true);
-var exportified = exportify(code, wrapper.return);
+var exportified = exportify(code, wrapper.return, options);
 
 wrapper = getWrapper(exportified, false);
 var requirefied = requirefy(exportified, options);
