@@ -34,6 +34,16 @@ function upgradeProject(fullPathToRequireJsConfig, options, cb) {
     });
   }
 
+  function writeFile(entry, cb) {
+    // don't rewrite files that don't need to be upgraded
+    if (!entry) return cb(null);
+
+    fs.writeFile(entry.fullPath, entry.upgraded, 'utf-8', function (err, res) {
+        if (err) return log.error('browserify-ftw', err);
+        cb(null);
+    });
+  }
+
   function rewrite(file, cb) {
     log.info('browserify-ftw', '\nProcessing: ', file.fullPath);
 
@@ -45,7 +55,8 @@ function upgradeProject(fullPathToRequireJsConfig, options, cb) {
 
     log.info('browserify-ftw', 'Found requirejs wrapper. Upgrading.');
 
-    cb(null);
+    return options.dryrun ? cb(null, null) : cb(null, { fullPath: file.fullPath, upgraded: upgraded });
+
   }
   
   readdirp({ root: requirejsDir, fileFilter: '*.js', directoryFilter: options.directoryFilter })
@@ -54,9 +65,8 @@ function upgradeProject(fullPathToRequireJsConfig, options, cb) {
     })
     .pipe(map(readFile))
     .pipe(map(rewrite))
-    .on('end', function () { 
-      cb(null, errors); 
-    });
+    .pipe(map(writeFile))
+    .on('end', cb);
 }
 
 var fullPathToRequireJsConfig = path.join(__dirname, 'test/fixtures/requirejs-config.js');
