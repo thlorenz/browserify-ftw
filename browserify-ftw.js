@@ -8,11 +8,12 @@ var fs             =  require('fs')
   , upgrade        =  require('./lib/upgrade')
   , util           =  require('util')
   , options = {
-        quote: '\''
-      , style: 'var'
-      , indent: 2
-      , directoryFilter: null
-      , fileFilter: '.js'
+        quote           :  '\''
+      , style           :  'var'
+      , indent          :  2
+      , directoryFilter :  null
+      , fileFilter      :  '.js'
+      , dryrun          :  true
     }
   ;
 
@@ -34,11 +35,17 @@ function upgradeProject(fullPathToRequireJsConfig, options, cb) {
   }
 
   function rewrite(file, cb) {
-    log.info('browserify-ftw', 'rewriting', file.fullPath);
+    log.info('browserify-ftw', '\nProcessing: ', file.fullPath);
 
     var upgraded = upgrade(file.src, options, pathResolve(file.fullPath));
-    console.log(upgraded);
-    cb(null, upgraded);
+    if (!upgraded) { 
+      log.info('browserify-ftw', 'No requirejs wrapper found. Not upgrading.');
+      return cb(null, null);
+    }
+
+    log.info('browserify-ftw', 'Found requirejs wrapper. Upgrading.');
+
+    cb(null);
   }
   
   readdirp({ root: requirejsDir, fileFilter: '*.js', directoryFilter: options.directoryFilter })
@@ -47,9 +54,6 @@ function upgradeProject(fullPathToRequireJsConfig, options, cb) {
     })
     .pipe(map(readFile))
     .pipe(map(rewrite))
-    .on('data', function (data) {
-      errors = errors.concat(data);
-    })
     .on('end', function () { 
       cb(null, errors); 
     });
@@ -57,6 +61,7 @@ function upgradeProject(fullPathToRequireJsConfig, options, cb) {
 
 var fullPathToRequireJsConfig = path.join(__dirname, 'test/fixtures/requirejs-config.js');
 
-upgradeProject(fullPathToRequireJsConfig, options, function (err, errors) {
-  log.info('browserify-ftw', 'FINISHED', err);
+upgradeProject(fullPathToRequireJsConfig, options, function (err) {
+  if (err) return log.error('browserify-ftw', err);
+  log.info('browserify-ftw', 'Successfully upgraded your project. Please run valiquire "npm install -g valiquire" to validate all require paths.');
 });
