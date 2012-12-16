@@ -64,3 +64,12 @@ test('\nwhen a file contains code that is not parsable ', function (t) {
   t.notOk(upgraded, 'returns null since it cannot be upgraded')
   t.end()
 })
+
+test('\nwhen upgrading code that has unassigned commonjs require statements', function (t) {
+  var src = "require('./resolved/handlebars-templates');\n" +
+            "require('./resolved/router');\n"
+    , upgraded = upgrade(src, defOpts, resolvePath)
+
+  t.notOk(upgraded, 'returns null since it cannot be upgraded')
+  t.end()
+});
