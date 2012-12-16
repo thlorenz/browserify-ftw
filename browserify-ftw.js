@@ -45,8 +45,12 @@ module.exports = function upgradeProject(fullPathToRequireJsConfig, options, cb)
     return options.dryrun ? cb(null, null) : cb(null, { fullPath: file.fullPath, upgraded: upgraded });
 
   }
+
+  function fileFilter(entry) {
+    return entry.fullPath !== fullPathToRequireJsConfig && path.extname(entry.name) === options.fileFilter;
+  }
   
-  readdirp({ root: requirejsDir, fileFilter: '*.js', directoryFilter: options.directoryFilter })
+  readdirp({ root: requirejsDir, fileFilter: fileFilter, directoryFilter: options.directoryFilter })
     .on('error', function (err) { 
       cb(new Error('When reading ' + requirejsDir + ':\n' + err.message));
     })
