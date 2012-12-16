@@ -3,6 +3,7 @@ var fs             =  require('fs')
   , path           =  require('path')
   , map            =  require('map-stream')
   , readdirp       =  require('readdirp')
+  , log            =  require('npmlog')
   , getResolvePath =  require('./lib/get-resolve-path')
   , upgrade        =  require('./lib/upgrade')
   , util           =  require('util')
@@ -27,13 +28,13 @@ function upgradeProject(fullPathToRequireJsConfig, options, cb) {
 
   function readFile(entry, cb) {
     fs.readFile(entry.fullPath, 'utf-8', function (err, res) {
-        if (err) return console.error(err);
+        if (err) return log.error('browserify-ftw', err);
         cb(null, { fullPath: entry.fullPath, src: res });
     });
   }
 
   function rewrite(file, cb) {
-    console.log('rewriting', file.fullPath);
+    log.info('browserify-ftw', 'rewriting', file.fullPath);
 
     var upgraded = upgrade(file.src, options, pathResolve(file.fullPath));
     console.log(upgraded);
@@ -57,5 +58,5 @@ function upgradeProject(fullPathToRequireJsConfig, options, cb) {
 var fullPathToRequireJsConfig = path.join(__dirname, 'test/fixtures/requirejs-config.js');
 
 upgradeProject(fullPathToRequireJsConfig, options, function (err, errors) {
-  console.log('FINISHED', err);
+  log.info('browserify-ftw', 'FINISHED', err);
 });
