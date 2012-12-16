@@ -46,3 +46,12 @@ function run(t, fixture) {
       run(t, testcase[1]) 
     })
 })
+
+test('when a file is has no requirejs wrapper and therefore cannot be upgraded', function (t) {
+  var file = path.join(fixtures, 'commonjs' )
+    , src = fs.readFileSync(file + '.js', 'utf-8')
+    , upgraded = upgrade(src, defOpts, resolvePath)
+
+  t.notOk(upgraded, 'returns null since it cannot be upgraded')
+  t.end()
+})
