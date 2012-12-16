@@ -47,9 +47,17 @@ function run(t, fixture) {
     })
 })
 
-test('when a file is has no requirejs wrapper and therefore cannot be upgraded', function (t) {
+test('\nwhen a file has no requirejs wrapper and therefore cannot be upgraded', function (t) {
   var file = path.join(fixtures, 'commonjs' )
     , src = fs.readFileSync(file + '.js', 'utf-8')
+    , upgraded = upgrade(src, defOpts, resolvePath)
+
+  t.notOk(upgraded, 'returns null since it cannot be upgraded')
+  t.end()
+})
+
+test('\nwhen a file contains code that is not parsable ', function (t) {
+  var src = '// script level returns are not allowed\nreturn 1;'
     , upgraded = upgrade(src, defOpts, resolvePath)
 
   t.notOk(upgraded, 'returns null since it cannot be upgraded')
