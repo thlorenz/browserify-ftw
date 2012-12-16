@@ -1,0 +1,5 @@
+require( 
+  [ 'handlebars-templates' 
+  , 'router'
+  ]
+);

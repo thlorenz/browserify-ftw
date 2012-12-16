@@ -37,10 +37,11 @@ function run(t, fixture) {
   t.end()
 }
 
-[ [ 'upgrades code with define wrapper with multiple dependencies'        , 'define-multiline' ]
-, [ 'upgrades code with define wrapper function definition before wrapper', 'define-function-before' ]
-, [ 'upgrades code with define wrapper function definition after wrapper' , 'define-function-after' ]
-, [ 'upgrades code with define wrapper that returns a multiline object'   , 'define-return-multiline-object' ]
+[ [ 'upgrades code with define wrapper with multiple dependencies'            , 'define-multiline' ]
+, [ 'upgrades code with define wrapper function definition before wrapper'    , 'define-function-before' ]
+, [ 'upgrades code with define wrapper function definition after wrapper'     , 'define-function-after' ]
+, [ 'upgrades code with define wrapper that returns a multiline object'       , 'define-return-multiline-object' ]
+, [ 'upgrades code with require wrapper that has dependencies but no params'  , 'require-noparams' ]
 ].forEach(function (testcase) {
     test('\n' + testcase[0], function (t) {
       run(t, testcase[1]) 
