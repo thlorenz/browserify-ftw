@@ -35,6 +35,9 @@ test('\ngiven the require paths: \n' + inspect(requirePaths), function (t) {
         , director   :  './lib/director-1.1.3'
         , handlebars :  './handlebars.runtime'
         , hbs        :  './lib/specific/hbs'
+          // the below are not defined in paths and therefore are assumed to be relative to the requirejs config path
+        , mymodule   :  './mymodule'
+        , 'lib/mylib':  './lib/mylib'
       }
     run(t, expected, resolve)
   });
@@ -46,6 +49,9 @@ test('\ngiven the require paths: \n' + inspect(requirePaths), function (t) {
         , director   :  './director-1.1.3'
         , handlebars :  '../handlebars.runtime'
         , hbs        :  './specific/hbs'
+          // the below are not defined in paths and therefore are assumed to be relative to the requirejs config path
+        , mymodule   :  '../mymodule'
+        , 'lib/mylib':  './mylib'
       }
     run(t, expected, resolve)
   });
@@ -57,6 +63,9 @@ test('\ngiven the require paths: \n' + inspect(requirePaths), function (t) {
         , director   :  '../lib/director-1.1.3'
         , handlebars :  '../handlebars.runtime'
         , hbs        :  '../lib/specific/hbs'
+          // the below are not defined in paths and therefore are assumed to be relative to the requirejs config path
+        , mymodule   :  '../mymodule'
+        , 'lib/mylib':  '../lib/mylib'
       }
     run(t, expected, resolve)
   });
@@ -68,6 +77,9 @@ test('\ngiven the require paths: \n' + inspect(requirePaths), function (t) {
         , director   :  '../fixtures/lib/director-1.1.3'
         , handlebars :  '../fixtures/handlebars.runtime'
         , hbs        :  '../fixtures/lib/specific/hbs'
+          // the below are not defined in paths and therefore are assumed to be relative to the requirejs config path
+        , mymodule   :  '../fixtures/mymodule'
+        , 'lib/mylib':  '../fixtures/lib/mylib'
       }
     run(t, expected, resolve)
   });

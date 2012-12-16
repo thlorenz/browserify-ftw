@@ -1,4 +1,8 @@
 'use strict';
+var fs             =  require('fs')
+  , path           =  require('path')
+  , getResolvePath =  require('./lib/get-resolve-path')
+  , upgrade        =  require('./lib/upgrade');
 
 var upgrade = require('./lib/upgrade')
   , util = require('util')
@@ -13,10 +17,11 @@ function inspect(obj, depth) {
   console.log(util.inspect(obj, false, depth || 5, true));
 }
 
-var fs = require('fs');
+var fullPathToRequireJsConfig = path.join(__dirname, 'test/fixtures/requirejs-config.js');
+var pathResolve = getResolvePath(fullPathToRequireJsConfig);
 
-var code = fs.readFileSync('./test/fixtures/define-return-multiline-object.js', 'utf-8');
+var fullPathToFile = path.join(__dirname, 'test/fixtures/define-multiline.js');
+var code = fs.readFileSync(fullPathToFile, 'utf-8');
 
-var upgraded = upgrade(code, options, function (p) { return p; });
-
+var upgraded = upgrade(code, options, pathResolve(fullPathToFile));
 console.log(upgraded);
