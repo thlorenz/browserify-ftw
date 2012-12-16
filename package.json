@@ -1,15 +1,22 @@
 {
   "name": "browserify-ftw",
   "version": "0.0.0",
-  "description": "Move your app from requirejs to browserify using an automated refactor.",
+  "description": "Upgrade your app from requirejs to browserify via an automated refactor step.",
   "main": "browserify-ftw.js",
   "scripts": {
     "test": "tap ./test/*.js"
   },
-  "repository": "",
+  "bin": {
+    "browserify-ftw": "./bin/browserify-ftw.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/thlorenz/browserify-ftw.git"
+  },
   "keywords": [
     "browserify",
-    "refactor"
+    "refactor",
+    "upgrade"
   ],
   "author": "Thorsten Lorenz <thlorenz@gmx.de> (thlorenz.com)",
   "license": "MIT",

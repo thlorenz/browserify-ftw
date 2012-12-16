@@ -1,4 +1,5 @@
 'use strict';
+
 var fs             =  require('fs')
   , path           =  require('path')
   , map            =  require('map-stream')
@@ -6,23 +7,9 @@ var fs             =  require('fs')
   , log            =  require('npmlog')
   , getResolvePath =  require('./lib/get-resolve-path')
   , upgrade        =  require('./lib/upgrade')
-  , util           =  require('util')
-  , options = {
-        quote           :  '\''
-      , style           :  'var'
-      , indent          :  2
-      , directoryFilter :  null
-      , fileFilter      :  '.js'
-      , dryrun          :  true
-    }
   ;
 
-function inspect(obj, depth) {
-  console.log(util.inspect(obj, false, depth || 5, true));
-}
-
-
-function upgradeProject(fullPathToRequireJsConfig, options, cb) {
+module.exports = function upgradeProject(fullPathToRequireJsConfig, options, cb) {
   var pathResolve = getResolvePath(fullPathToRequireJsConfig)
     , requirejsDir = path.dirname(fullPathToRequireJsConfig)
     , errors = [];
@@ -67,11 +54,4 @@ function upgradeProject(fullPathToRequireJsConfig, options, cb) {
     .pipe(map(rewrite))
     .pipe(map(writeFile))
     .on('end', cb);
-}
-
-var fullPathToRequireJsConfig = path.join(__dirname, 'test/fixtures/requirejs-config.js');
-
-upgradeProject(fullPathToRequireJsConfig, options, function (err) {
-  if (err) return log.error('browserify-ftw', err);
-  log.info('browserify-ftw', 'Successfully upgraded your project. Please run valiquire "npm install -g valiquire" to validate all require paths.');
-});
+};
