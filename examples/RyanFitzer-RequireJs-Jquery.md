@@ -1,3 +1,16 @@
+**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
+
+- [Example-RequireJS-jQuery-Project](#example-requirejs-jquery-project)
+	- [Converting from requirejs AMD to commonjs format](#converting-from-requirejs-amd-to-commonjs-format)
+		- [Adapting the requirejs config file](#adapting-the-requirejs-config-file)
+		- [Adapting the entry file](#adapting-the-entry-file)
+		- [Preparing the browserify-ftw refactor config file](#preparing-the-browserify-ftw-refactor-config-file)
+		- [Running browserify-ftw](#running-browserify-ftw)
+	- [Creating a proper package and running browserify](#creating-a-proper-package-and-running-browserify)
+		- [Initializing the npm package and installing dependencies](#initializing-the-npm-package-and-installing-dependencies)
+		- [Creating and running a browserify build script](#creating-and-running-a-browserify-build-script)
+		- [Updating the file used in the web page](#updating-the-file-used-in-the-web-page)
+
 # Example-RequireJS-jQuery-Project
 
 This example can be found [here](https://github.com/ryanfitzer/Example-RequireJS-jQuery-Project).
