@@ -51,6 +51,7 @@ bftw(fullPathToRequireJsConfig, options, function (err) {
     return process.exit(1);
   }
 
-  log.info('browserify-ftw', 'Successfully upgraded your project. Please run valiquire "npm install -g valiquire" to validate all require paths.');
+  log.info('browserify-ftw', '\nSuccessfully upgraded your project.');
+  log.info('browserify-ftw', 'Please run valiquire "npm install -g valiquire" to validate all require paths.');
   process.exit(0);
 });
