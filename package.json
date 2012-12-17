@@ -1,7 +1,7 @@
 {
   "name": "browserify-ftw",
   "version": "0.1.0",
-  "description": "Upgrade your app from requirejs to browserify via an automated refactor step.",
+  "description": "Upgrade your app from requireJS AMD to commonJS module format via an automated refactor step in order to browserify it.",
   "main": "browserify-ftw.js",
   "scripts": {
     "test": "tap ./test/*.js"
@@ -16,7 +16,9 @@
   "keywords": [
     "browserify",
     "refactor",
-    "upgrade"
+    "upgrade",
+    "commonJS",
+    "requireJS"
   ],
   "author": "Thorsten Lorenz <thlorenz@gmx.de> (thlorenz.com)",
   "license": "MIT",
