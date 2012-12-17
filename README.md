@@ -3,11 +3,10 @@
 Discovered [browserify](https://github.com/substack/node-browserify) too late and/or want to use common code on server
 and client?
 
-Think you are stuck in requirejs AMD format for client side code because there is no time to do the huge refactor?
+Think you are stuck with requirejs AMD format for your client side code because there is no time to do the huge refactor?
 
-Don't you fret, browserify-ftw is here to help:
-
-Once it is functional that is, so for now **move along, nothing to see here yet**.
+Don't you fret, browserify-ftw is here to help. For most projects it will be able to perform an upgrade it to a point
+where it can be browserified immediately, for all others it should get you at least 90% there.
 
 ## features
 
@@ -21,7 +20,7 @@ Once it is functional that is, so for now **move along, nothing to see here yet*
 - will not wrap your jquery, etc., for you, you'll need to do this by hand
 - cannot resolve template files (maybe a good time to switch to [precompiled
   templates](https://github.com/wycats/handlebars.js/#precompiling-templates)) ;)
-- only `'var'` style -> `'var foo = require('foo');'` require style supported at this point
+- only `'var foo = require('foo');'` require style supported at this point
 - `directoryFilter` not yet supported
 
 ## step by step examples
@@ -29,7 +28,7 @@ Once it is functional that is, so for now **move along, nothing to see here yet*
 Additionally to the below documentation you will find the [step by step
 examples](https://github.com/thlorenz/browserify-ftw/tree/master/examples) helpful.
 
-**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
+## **Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
 
 - [preparing requirejs config](#preparing-requirejs-config)
   - [global modules](#global-modules)
