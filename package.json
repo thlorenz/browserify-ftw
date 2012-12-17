@@ -1,6 +1,6 @@
 {
   "name": "browserify-ftw",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Upgrade your app from requirejs to browserify via an automated refactor step.",
   "main": "browserify-ftw.js",
   "scripts": {
