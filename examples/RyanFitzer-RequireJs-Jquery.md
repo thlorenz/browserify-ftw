@@ -141,7 +141,7 @@ require('./modules/beta');
 logger( 'home', arguments );
 ```
 
-We can use `valiquire` (`npm -g install valiquire`) in order to verify that all `require` statements are correct.
+We can use `valiquire .` (`npm -g install valiquire`) in order to verify that all `require` statements are correct.
 This will display some errors, all about `jquery` not being found, which is something we will fix next.
 
 ## Creating a proper package and running browserify
