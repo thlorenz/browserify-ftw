@@ -1,15 +1,14 @@
 **Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
 
-- [Example-RequireJS-jQuery-Project](#example-requirejs-jquery-project)
-	- [Converting from requirejs AMD to commonjs format](#converting-from-requirejs-amd-to-commonjs-format)
-		- [Adapting the requirejs config file](#adapting-the-requirejs-config-file)
-		- [Adapting the entry file](#adapting-the-entry-file)
-		- [Preparing the browserify-ftw refactor config file](#preparing-the-browserify-ftw-refactor-config-file)
-		- [Running browserify-ftw](#running-browserify-ftw)
-	- [Creating a proper package and running browserify](#creating-a-proper-package-and-running-browserify)
-		- [Initializing the npm package and installing dependencies](#initializing-the-npm-package-and-installing-dependencies)
-		- [Creating and running a browserify build script](#creating-and-running-a-browserify-build-script)
-		- [Updating the file used in the web page](#updating-the-file-used-in-the-web-page)
+- [Converting from requirejs AMD to commonjs format](#converting-from-requirejs-amd-to-commonjs-format)
+  - [Adapting the requirejs config file](#adapting-the-requirejs-config-file)
+  - [Adapting the entry file](#adapting-the-entry-file)
+  - [Preparing the browserify-ftw refactor config file](#preparing-the-browserify-ftw-refactor-config-file)
+  - [Running browserify-ftw](#running-browserify-ftw)
+- [Creating a proper package and running browserify](#creating-a-proper-package-and-running-browserify)
+  - [Initializing the npm package and installing dependencies](#initializing-the-npm-package-and-installing-dependencies)
+  - [Creating and running a browserify build script](#creating-and-running-a-browserify-build-script)
+  - [Updating the file used in the web page](#updating-the-file-used-in-the-web-page)
 
 # Example-RequireJS-jQuery-Project
 
@@ -111,12 +110,12 @@ how your require statements look, e.g., `require('./foo')` or `require("./foo")`
 
 ### Running browserify-ftw
 
-Since now we are setup, we can run browserify-ftw as passing the requirejs config as first and our refactor config as
+Since now we are setup, we can run browserify-ftw, passing the requirejs config as first and our refactor config as
 second argument as follows:
 
     browserify-ftw require-config.js refactor-config.js
 
-This prints some information regarding to which files were requirejs files and could be upgraded and should end with:
+This prints some information regarding about which files were upgraded and should end with:
 "Successfully upgraded your project."
 
 The following files have been upgraded: 
@@ -138,13 +137,11 @@ var logger = require('./modules/logger');
 require('./modules/alpha');
 require('./modules/beta');
 
-    
 logger( 'home', arguments );
 ```
 
-We can now use `valiquire` (`npm -g install valiquire`) in order to verify that all `require` statements are correct.
+We can use `valiquire` (`npm -g install valiquire`) in order to verify that all `require` statements are correct.
 This will display some errors, all about `jquery` not being found, which is something we will fix next.
-
 
 ## Creating a proper package and running browserify
 
@@ -214,7 +211,7 @@ Voila, we should see a simple looking page. Most notably it will contain:
 2. **modules/beta** factory has executed.
 3. **home factory** has executed.
 
-which tells us that all javascript have successfully executed.
+which tells us that all JavaScript files have successfully executed.
 
-Opening your developer tools and looking at the source tab, you should see all your javascript file listed separately
+Opening your developer tools and looking at the source tab, you should see all your JavaScript files listed separately
 thanks to the power of source maps.
