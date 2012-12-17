@@ -12,7 +12,8 @@
 
 # Example-RequireJS-jQuery-Project
 
-This example can be found [here](https://github.com/ryanfitzer/Example-RequireJS-jQuery-Project).
+This example can be found [here](https://github.com/ryanfitzer/Example-RequireJS-jQuery-Project). It is authored using
+the requirejs AMD format and we will browserify it.
 
 First you should clone it and go into its root folder:
 
@@ -21,7 +22,7 @@ First you should clone it and go into its root folder:
 
 ## Converting from requirejs AMD to commonjs format
 
-A few steps are necessary to enable browserify to do its job.
+A few steps are necessary to enable browserify-ftw to do its job.
 
 ### Adapting the requirejs config file
 
