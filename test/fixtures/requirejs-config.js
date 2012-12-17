@@ -8,6 +8,7 @@ requirejs.config ({
     , 'director'   :  'lib/director-1.1.3'
     , 'handlebars' :  'handlebars.runtime'
     , 'hbs'        :  'lib/specific/hbs'
+    , 'underscore' :  null
     }
 });
 

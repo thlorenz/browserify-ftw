@@ -14,6 +14,7 @@ var fullPathToRequirejsConfig = path.join(__dirname, 'fixtures/requirejs-config.
       , director   :  'lib/director-1.1.3'
       , handlebars :  'handlebars.runtime'
       , hbs        :  'lib/specific/hbs'
+      , underscore :  null
     } 
 
 function inspect(obj, depth) {
@@ -38,6 +39,8 @@ test('\ngiven the require paths: \n' + inspect(requirePaths), function (t) {
           // the below are not defined in paths and therefore are assumed to be relative to the requirejs config path
         , mymodule   :  './mymodule'
         , 'lib/mylib':  './lib/mylib'
+          // the below are set to null in the path and therefore are assumed to be resolved as globael (i.e. a node_module)
+        , underscore :  'underscore'
       }
     run(t, expected, resolve)
   });
@@ -52,6 +55,8 @@ test('\ngiven the require paths: \n' + inspect(requirePaths), function (t) {
           // the below are not defined in paths and therefore are assumed to be relative to the requirejs config path
         , mymodule   :  '../mymodule'
         , 'lib/mylib':  './mylib'
+          // the below are set to null in the path and therefore are assumed to be resolved as globael (i.e. a node_module)
+        , underscore :  'underscore'
       }
     run(t, expected, resolve)
   });
@@ -66,6 +71,8 @@ test('\ngiven the require paths: \n' + inspect(requirePaths), function (t) {
           // the below are not defined in paths and therefore are assumed to be relative to the requirejs config path
         , mymodule   :  '../mymodule'
         , 'lib/mylib':  '../lib/mylib'
+          // the below are set to null in the path and therefore are assumed to be resolved as globael (i.e. a node_module)
+        , underscore :  'underscore'
       }
     run(t, expected, resolve)
   });
@@ -80,6 +87,8 @@ test('\ngiven the require paths: \n' + inspect(requirePaths), function (t) {
           // the below are not defined in paths and therefore are assumed to be relative to the requirejs config path
         , mymodule   :  '../fixtures/mymodule'
         , 'lib/mylib':  '../fixtures/lib/mylib'
+          // the below are set to null in the path and therefore are assumed to be resolved as globael (i.e. a node_module)
+        , underscore :  'underscore'
       }
     run(t, expected, resolve)
   });

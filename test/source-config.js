@@ -18,6 +18,7 @@ test('\nsources config from given require js config code', function (t) {
       , director   :  'lib/director-1.1.3'
       , handlebars :  'handlebars.runtime'
       , hbs        :  'lib/specific/hbs'
+      , underscore :  null
     } 
   }
 
