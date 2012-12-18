@@ -83,7 +83,7 @@ For the following steps you need to have `browserify-ftw` installed. So if you h
 
     npm -g install browserify-ftw
 
-At this point you can try a dry run via `browserify require-config.js`, which will use a default refactor config with
+At this point you can try a dry run via `browserify-ftw require-config.js`, which will use a default refactor config with
 `dryrun` enabled.
 
 In order for browserify-ftw to generate code that conforms to the rest of your project, we need to give it some

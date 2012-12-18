@@ -8,11 +8,11 @@ Think you are stuck with requirejs AMD format for your client side code because 
 Don't you fret, browserify-ftw is here to help. For most projects it will be able to perform an upgrade it to a point
 where it can be browserified immediately, for all others it should get you at least 90% there.
 
-## Warning
+## warning
 
 Running browserify-ftw on your code will rewrite the original files!
 
-Therefore you should check all you files into source control and best create a new branch before running it in order to be able to revert to the original state in case something goes wrong.
+Therefore you should check all your files into source control and best create a new branch before running it in order to be able to revert to the original state in case something goes wrong.
 
 ## features
 
@@ -114,7 +114,7 @@ module.exports = {
 };
 ```
 
-## running browserfiy-ftw
+## running browserify-ftw
 
 browserify-ftw has a very simple command line interface:
 
