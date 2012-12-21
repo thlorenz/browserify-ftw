@@ -118,12 +118,12 @@ module.exports = {
 
 browserify-ftw has a very simple command line interface:
 
-    browserify require-config [refactor-config]
+    browserify-ftw require-config [refactor-config]
 
 Therefore after you prepared your `require-config.js` and a `refactor-config.js` the following will upgrade your project
 while printing information about which files are being upgraded:
 
-    browserify require-config.js refactor-config.js
+    browserify-ftw require-config.js refactor-config.js
 
 It should end with "Successfully upgraded your project.".
 
