@@ -11,6 +11,7 @@ var fs             =  require('fs')
 
 module.exports = function upgradeProject(fullPathToRequireJsConfig, options, cb) {
   var pathResolve = getResolvePath(fullPathToRequireJsConfig)
+    , requireJSConfig = pathResolve.requireJSConfig
     , requirejsDir = path.dirname(fullPathToRequireJsConfig)
     , errors = [];
 
