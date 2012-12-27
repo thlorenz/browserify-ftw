@@ -45,6 +45,7 @@ try {
   process.exit(1);
 }
 
+// pass entry.js and bundle target via command line
 bftw(fullPathToRequireJsConfig, options, function (err) {
   if (err) {
     log.error('browserify-ftw', err);

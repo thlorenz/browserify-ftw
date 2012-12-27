@@ -6,6 +6,8 @@ var fs             =  require('fs')
   , readdirp       =  require('readdirp')
   , log            =  require('npmlog')
   , getResolvePath =  require('./lib/get-resolve-path')
+  , prepareShims   =  require('./lib/prepare-shims')
+  , makeBuild      =  require('./lib/make-build')
   , upgrade        =  require('./lib/upgrade')
   ;
 
@@ -51,6 +53,21 @@ module.exports = function upgradeProject(fullPathToRequireJsConfig, options, cb)
     return entry.fullPath !== fullPathToRequireJsConfig && path.extname(entry.name) === options.fileFilter;
   }
   
+
+  function inspect(obj, depth) {
+    console.log(require('util').inspect(obj, false, depth || 5, true));
+  }
+  inspect(requireJSConfig);
+  var prepared = prepareShims(requireJSConfig.shim, requireJSConfig.paths);
+  options.shims = prepared.shims;
+  inspect(options.shims);
+
+
+  // adjust shim paths relative to bundle.js
+  var buildjs = makeBuild(options, './build/bundle.js');
+  console.log(buildjs);
+
+  return;
   readdirp({ root: requirejsDir, fileFilter: fileFilter, directoryFilter: options.directoryFilter })
     .on('error', function (err) { 
       cb(new Error('When reading ' + requirejsDir + ':\n' + err.message));
