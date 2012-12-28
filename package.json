@@ -26,7 +26,9 @@
     "esprima": "~1.0.2",
     "map-stream": "0.0.1",
     "readdirp": "~0.2.1",
-    "npmlog": "0.0.2"
+    "npmlog": "0.0.2",
+    "optimist": "~0.3.5",
+    "cardinal": "~0.3.1"
   },
   "devDependencies": {
     "tap": "~0.3.3",

@@ -5,16 +5,25 @@ var fs             =  require('fs')
   , map            =  require('map-stream')
   , readdirp       =  require('readdirp')
   , log            =  require('npmlog')
+  , cardinal       =  require('cardinal')
   , getResolvePath =  require('./lib/get-resolve-path')
   , prepareShims   =  require('./lib/prepare-shims')
   , makeBuild      =  require('./lib/make-build')
   , upgrade        =  require('./lib/upgrade')
   ;
 
-module.exports = function upgradeProject(fullPathToRequireJsConfig, options, cb) {
+module.exports = function upgradeProject(
+      fullPathToRequireJsConfig
+    , fullPathToBuildJs
+    , relativePathToBundleJs
+    , relativePathToEntryJs
+    , options
+    , cb) {
+
   var pathResolve = getResolvePath(fullPathToRequireJsConfig)
     , requireJSConfig = pathResolve.requireJSConfig
     , requirejsDir = path.dirname(fullPathToRequireJsConfig)
+    , buildjsDir = path.dirname(fullPathToBuildJs)
     , errors = [];
 
   function readFile(entry, cb) {
@@ -46,28 +55,31 @@ module.exports = function upgradeProject(fullPathToRequireJsConfig, options, cb)
     log.info('browserify-ftw', 'Found requirejs wrapper. Upgrading.');
 
     return options.dryrun ? cb(null, null) : cb(null, { fullPath: file.fullPath, upgraded: upgraded });
-
   }
 
   function fileFilter(entry) {
     return entry.fullPath !== fullPathToRequireJsConfig && path.extname(entry.name) === options.fileFilter;
   }
   
+  function createBuildScript() {
+    var prepared = prepareShims(requireJSConfig.shim, requireJSConfig.paths, requirejsDir, buildjsDir);
+    options.shims = prepared.shims;
 
-  function inspect(obj, depth) {
-    console.log(require('util').inspect(obj, false, depth || 5, true));
+    var buildjs = makeBuild(options, relativePathToBundleJs, relativePathToEntryJs);
+    log.info('browserify-ftw', '\nBuild script content:\n\n%s', cardinal.highlight(buildjs));
+    log.info('browserify-ftw', 'Writing build script to %s\n', fullPathToBuildJs);
+
+    if (options.shims && options.shims.length) {
+      log.warn('browserify-ftw', 'Your build contains shims. Make sure to install browserify-shim to your project:');
+      log.warn('browserify-ftw', 'npm -S install browserify-shim');
+    }
+
+    if (options.dryrun) return;
+
+    fs.writeFileSync(fullPathToBuildJs, buildjs, 'utf-8');
+
   }
-  inspect(requireJSConfig);
-  var prepared = prepareShims(requireJSConfig.shim, requireJSConfig.paths);
-  options.shims = prepared.shims;
-  inspect(options.shims);
 
-
-  // adjust shim paths relative to bundle.js
-  var buildjs = makeBuild(options, './build/bundle.js');
-  console.log(buildjs);
-
-  return;
   readdirp({ root: requirejsDir, fileFilter: fileFilter, directoryFilter: options.directoryFilter })
     .on('error', function (err) { 
       cb(new Error('When reading ' + requirejsDir + ':\n' + err.message));
@@ -75,5 +87,8 @@ module.exports = function upgradeProject(fullPathToRequireJsConfig, options, cb)
     .pipe(map(readFile))
     .pipe(map(rewrite))
     .pipe(map(writeFile))
-    .on('end', cb);
+    .on('end', function () {
+      createBuildScript();
+      cb();
+    });
 };
