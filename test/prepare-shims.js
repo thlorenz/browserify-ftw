@@ -38,7 +38,10 @@ var paths = {
         alias: 'backbone.stickit',
         path: 'vendor/backbone.stickit-mod' },
       { exports: 'Handlebars',
-        alias: 'handlebars' } ],
+        alias: 'handlebars', 
+        pathMissing: true,
+        path: prepareShims.pathMissingFor('handlebars') 
+      } ],
     missingPaths: [ 'handlebars' ] }
   
 function inspect(obj, depth) {
