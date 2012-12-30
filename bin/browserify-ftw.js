@@ -15,7 +15,7 @@ var util    =  require('util')
       })
       .options('c', {
           alias    :  'config'
-        , describe :  'path to config to be used for the refactoring (https://github.com/thlorenz/browserify-ftw#preparing-a-custom-refactor-config)'
+        , describe :  'path to config to be used for the refactoring\n(https://github.com/thlorenz/browserify-ftw#preparing-a-custom-refactor-config)'
         , default  :  path.join(__dirname, '../lib/refactor-config.js')
       })
       .options('b', {
@@ -30,7 +30,7 @@ var util    =  require('util')
       })
       .options('e', {
           alias    :  'entry'
-        , describe :  'path at which will be the entry file for browserify'
+        , describe :  'path at which the entry file for browserify will be located'
         , demand   :  true
       })
       .argv
