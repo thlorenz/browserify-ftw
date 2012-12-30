@@ -1,12 +1,13 @@
+var fs = require('fs');
+var path = require('path');
 var browserify = require('browserify');
 var shim = require('browserify-shim');
-var fs = require('fs');
 
 var bundled = browserify({ debug: true })
-  .use(shim({ alias: 'jquery', path: './js/vendor/jquery.js', export: '$' }))
-  .use(shim({ alias: 'underscore', path: './js/vendor/underscore.js', export: null }))
-  .addEntry('./js/entry.js')
+  .use(shim({ alias: 'jquery', path: './js/vendor/jquery.js', exports: '$' }))
+  .use(shim({ alias: 'underscore', path: './js/vendor/underscore.js', exports: null }))
+  .addEntry(path.join(__dirname, './js/entry.js'))
   .bundle()
   .shim();
 
-fs.writeFileSync('./build/bundle.js', bundled, 'utf-8');
+fs.writeFileSync(path.join(__dirname, './build/bundle.js'), bundled, 'utf-8');
