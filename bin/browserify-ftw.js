@@ -56,11 +56,15 @@ if (!args.length) {
 }
 
 try {
+  // fs.realpathSync will throw if requirejs-config or refactor-config don't exist
   fullRequireJs =  fs.realpathSync(argv.requirejs);
   fullConfig    =  fs.realpathSync(argv.config);
+
+  // using path.resolve for these since they don't exist yet
   fullBuildJs   =  path.resolve(argv.build);
-  entryJs       =  path.relative(fullBuildJs, argv.entry);
-  bundleJs      =  path.relative(fullBuildJs, argv.bundle);
+  entryJs       =  path.relative(path.dirname(fullBuildJs), path.resolve(argv.entry)); 
+  bundleJs      =  path.relative(path.dirname(fullBuildJs), path.resolve(argv.bundle));
+
 } catch (e) {
   log.error('browserify-ftw', 'While resolving given path(s):\n\t', e.message);
   process.exit(1);
