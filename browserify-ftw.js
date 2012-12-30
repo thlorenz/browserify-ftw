@@ -20,11 +20,11 @@ module.exports = function upgradeProject(
     , options
     , cb) {
 
-  var pathResolve = getResolvePath(fullPathToRequireJsConfig)
-    , requireJSConfig = pathResolve.requireJSConfig
-    , requirejsDir = path.dirname(fullPathToRequireJsConfig)
-    , buildjsDir = path.dirname(fullPathToBuildJs)
-    , errors = [];
+  var pathResolve     =  getResolvePath(fullPathToRequireJsConfig)
+    , requireJSConfig =  pathResolve.requireJSConfig
+    , requirejsDir    =  path.dirname(fullPathToRequireJsConfig)
+    , buildjsDir      =  path.dirname(fullPathToBuildJs)
+    , errors          =  [];
 
   function readFile(entry, cb) {
     fs.readFile(entry.fullPath, 'utf-8', function (err, res) {
