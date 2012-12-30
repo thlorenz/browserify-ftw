@@ -1,14 +1,16 @@
 **Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
 
-- [Converting from requirejs AMD to commonjs format](#converting-from-requirejs-amd-to-commonjs-format)
-  - [Adapting the requirejs config file](#adapting-the-requirejs-config-file)
-  - [Adapting the entry file](#adapting-the-entry-file)
-  - [Preparing the browserify-ftw refactor config file](#preparing-the-browserify-ftw-refactor-config-file)
-  - [Running browserify-ftw](#running-browserify-ftw)
-- [Creating a proper package and running browserify](#creating-a-proper-package-and-running-browserify)
-  - [Initializing the npm package and installing dependencies](#initializing-the-npm-package-and-installing-dependencies)
-  - [Creating and running a browserify build script](#creating-and-running-a-browserify-build-script)
-  - [Updating the file used in the web page](#updating-the-file-used-in-the-web-page)
+- [Example-RequireJS-jQuery-Project](#example-requirejs-jquery-project)
+	- [Converting from requirejs AMD to commonjs format](#converting-from-requirejs-amd-to-commonjs-format)
+		- [Adapting the requirejs config file](#adapting-the-requirejs-config-file)
+		- [Adapting the entry file](#adapting-the-entry-file)
+		- [Preparing the browserify-ftw refactor config file](#preparing-the-browserify-ftw-refactor-config-file)
+		- [Preparing build directory](#preparing-build-directory)
+		- [Running browserify-ftw](#running-browserify-ftw)
+	- [Creating a proper npm package and running browserify](#creating-a-proper-npm-package-and-running-browserify)
+		- [Initializing the npm package and installing dependencies](#initializing-the-npm-package-and-installing-dependencies)
+		- [Running the generated browserify build script](#running-the-generated-browserify-build-script)
+		- [Updating the file used in the web page](#updating-the-file-used-in-the-web-page)
 
 # Example-RequireJS-jQuery-Project
 
@@ -30,30 +32,29 @@ The requirejs configuration is inside the `library/js` folder, so lets head ther
 
     cd library/js 
 
-Open `require-config.js` in your favorite editor and look at the `paths`.
+Update it so `require-config.js` looks like the below:
 
 ```js
-[..]
-paths: {
-    'jquery': 'modules/jquery'
-},
-[..]
+require.config({ 
+  shim: {
+    jquery: { exports: '$' }
+  },
+  paths: {
+      'jquery': 'modules/jquery'
+  }
+});
 ```
 
-Since we will be using a node module that wraps jquery, we want to require jquery as a global. Therefore we set its path
-to `null`.
+We reduced it to only include the information necessary for `browserify-ftw` to fix all `require` statements and
+generate a `browserify` build script.
 
-```js
-[..]
-paths: {
-    'jquery': null
-},
-[..]
-```
+As you can see we added shim information (normally this would have been included in the requirejs config already, but in
+this case it wasn't). This information is necessary in order for browserify-ftw to properly shim jquery using
+[browserify-shim](https://github.com/thlorenz/browserify-shim) in order to be required as if it was commonJS compatible.
 
 ### Adapting the entry file
 
-Right now the requirejs entry file `home.js` has nested requirejs wrappers. This doesn't make sense in commonjs land and
+Right now the requirejs entry file `home.js` has nested requirejs wrappers. This doesn't make sense in commonJS land and
 browserify-ftw may have problems with that also.
 
 Change the content of the file until it looks like so:
@@ -83,7 +84,7 @@ For the following steps you need to have `browserify-ftw` installed. So if you h
 
     npm -g install browserify-ftw
 
-At this point you can try a dry run via `browserify-ftw require-config.js`, which will use a default refactor config with
+At this point you can try a dry run via `browserify-ftw -r require-config.js -e home.js`, which will use a default refactor config with
 `dryrun` enabled.
 
 In order for browserify-ftw to generate code that conforms to the rest of your project, we need to give it some
@@ -109,15 +110,29 @@ how your require statements look, e.g., `require('./foo')` or `require("./foo")`
 
 `'var'` is the only available style at this point.
 
+### Preparing build directory
+
+In order for our code that is generated (built) by browserify to be clearly separate from our source code, we create a
+build diretory:
+
+    mkdir build
+
 ### Running browserify-ftw
 
-Since now we are setup, we can run browserify-ftw, passing the requirejs config as first and our refactor config as
-second argument as follows:
+Since now we are setup, we can run `browserify-ftw`, passing the necessary arguments as follows:
 
-    browserify-ftw require-config.js refactor-config.js
+    browserify-ftw -r require-config.js -c refactor-config.js -e home.js -b ./build.js -u ./build/bundle.js
 
-This prints some information regarding about which files were upgraded and should end with:
-"Successfully upgraded your project."
+- `-r` defines the requirejs-config that browserify-ftw will use 
+- `-c` defines the refactor config that browserify-ftw will use
+- `-e` defines what entry file browserify will use when building the `bundle.js`
+- `-b` defines where to save the generated browserify build script
+- `-u` defines where the `bundle.js` file is to be saved to when the `build.js` script is run
+
+When we execute this command, browserify-ftw prints some information regarding about which files were upgraded and
+should end with a snippet of the generated `build.js` script and finally with:
+
+    "Successfully upgraded your project."
 
 The following files have been upgraded: 
 
@@ -141,10 +156,14 @@ require('./modules/beta');
 logger( 'home', arguments );
 ```
 
-We can use `valiquire .` (`npm -g install valiquire`) in order to verify that all `require` statements are correct.
+We can use `valiquire .` in order to verify that all `require` statements are correct.
 This will display some errors, all about `jquery` not being found, which is something we will fix next.
 
-## Creating a proper package and running browserify
+If you don't have `valiquire` installed on your machine you can do so as follows:
+
+    npm install -g valiquire
+
+## Creating a proper npm package and running browserify
 
 ### Initializing the npm package and installing dependencies
 
@@ -156,40 +175,16 @@ In order for the next steps to succeed, we need to initialize this app as a prop
 Confirm each default by pressing `<Enter>` to have a `package.json` created for you. Next we wil install necessary
 packages:
 
-    npm install browserify
-    npm install br-jquery
+    npm install -S browserify browserify-shim
 
-The last one, `br-jquery` wraps the `jquery` we know so it works like a commonjs module. Find more information
-[here](https://github.com/benatkin/br-jquery).
+**Note:** we don't install browserify globally since it is used as a library inside our `build.js` script and not as a
+command line tool.
 
-### Creating and running a browserify build script
+### Running the generated browserify build script
 
-We now need to write a short script that will `browserify` our javascript files.
+    node ./library/js/build.js
 
-Inside the current folder (the root of the project) create `build.js` and enter the following:
-
-```js
-var js = require('browserify') ({
-    require :  { jquery : 'br-jquery' } // require br-jquery and use it wherever jquery is required
-  , entry   :  'library/js/home.js'     // entry point for browserify to find all our javascript
-  , debug   :  true                     // yes, we'd like source maps
-}).bundle();
-
-require('fs').writeFileSync('library/js/build/bundle.js', js, 'utf-8');
-
-console.log('Success!');
-```
-
-We will store the built file inside `library/js/build` in order to keep it separate from our source files. Lets create
-that folder now:
-
-    mkdir library/js/build
-
-Now run our build script:
-
-    node build.js
-
-which should print "Success!"
+should print "Success!"
 
 ### Updating the file used in the web page
 
@@ -206,7 +201,6 @@ to:
 and open it inside the browser: `open index.html`.
 
 Voila, we should see a simple looking page. Most notably it will contain:
-
 
 1. **modules/alpha** factory has executed.
 2. **modules/beta** factory has executed.
