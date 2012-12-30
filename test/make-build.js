@@ -44,8 +44,8 @@ function inspect(obj, depth) {
 
 ~function () {
   var shims = [ 
-      { alias: 'jquery', path: './js/vendor/jquery.js', export: '$' }
-    , { alias: 'underscore', path: './js/vendor/underscore.js', export: null }
+      { alias: 'jquery', path: './js/vendor/jquery.js', exports: '$' }
+    , { alias: 'underscore', path: './js/vendor/underscore.js', exports: null }
   ];
 
   var config = {
