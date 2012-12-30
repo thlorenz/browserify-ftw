@@ -5,7 +5,8 @@ var fs = require('fs');
 var bundled = browserify({ debug: true })
   .use(shim({ alias: 'jquery', path: './js/vendor/jquery.js', export: '$' }))
   .use(shim({ alias: 'underscore', path: './js/vendor/underscore.js', export: null }))
-  .use(shim.addEntry('./js/entry.js'))
-  .bundle();
+  .addEntry('./js/entry.js')
+  .bundle()
+  .shim();
 
 fs.writeFileSync('./build/bundle.js', bundled, 'utf-8');
