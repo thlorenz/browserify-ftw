@@ -34,7 +34,8 @@ test('\ngiven the require paths: \n' + inspect(requirePaths), function (t) {
       , expected = {
           jquery     :  './vendor/jquery-1.8.0'
         , director   :  './lib/director-1.1.3'
-        , handlebars :  './handlebars.runtime'
+          // handlebars is shimmed, therefore it will be kept as global
+        , handlebars :  'handlebars'
         , hbs        :  './lib/specific/hbs'
           // the below are not defined in paths and therefore are assumed to be relative to the requirejs config path
         , mymodule   :  './mymodule'
@@ -50,7 +51,8 @@ test('\ngiven the require paths: \n' + inspect(requirePaths), function (t) {
       , expected = {
           jquery     :  '../vendor/jquery-1.8.0'
         , director   :  './director-1.1.3'
-        , handlebars :  '../handlebars.runtime'
+          // handlebars is shimmed, therefore it will be kept as global
+        , handlebars :  'handlebars'
         , hbs        :  './specific/hbs'
           // the below are not defined in paths and therefore are assumed to be relative to the requirejs config path
         , mymodule   :  '../mymodule'
@@ -66,7 +68,8 @@ test('\ngiven the require paths: \n' + inspect(requirePaths), function (t) {
       , expected = {
           jquery     :  './jquery-1.8.0'
         , director   :  '../lib/director-1.1.3'
-        , handlebars :  '../handlebars.runtime'
+          // handlebars is shimmed, therefore it will be kept as global
+        , handlebars :  'handlebars'
         , hbs        :  '../lib/specific/hbs'
           // the below are not defined in paths and therefore are assumed to be relative to the requirejs config path
         , mymodule   :  '../mymodule'
@@ -82,7 +85,8 @@ test('\ngiven the require paths: \n' + inspect(requirePaths), function (t) {
       , expected = {
           jquery     :  '../fixtures/vendor/jquery-1.8.0'
         , director   :  '../fixtures/lib/director-1.1.3'
-        , handlebars :  '../fixtures/handlebars.runtime'
+          // handlebars is shimmed, therefore it will be kept as global
+        , handlebars :  'handlebars'
         , hbs        :  '../fixtures/lib/specific/hbs'
           // the below are not defined in paths and therefore are assumed to be relative to the requirejs config path
         , mymodule   :  '../fixtures/mymodule'
