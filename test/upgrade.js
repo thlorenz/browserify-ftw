@@ -7,16 +7,18 @@ var test = require('tap').test
   , cardinal = require('cardinal')
   , upgrade = require('../lib/upgrade')
   , fixtures = path.join(__dirname, 'fixtures')
-	, defOpts = {
-		quote: '\''
-		, style: 'var'
-		, indent: 2
-	}, commaOpts = {
-    quote: '\''
+  , defOpts = {
+      quote: '\''
+    , style: 'var'
+    , indent: 2
+    }
+  , commaOpts = {
+      quote: '\''
     , style: 'comma'
     , indent: 2
-  }, commaFirstOpts = {
-    quote: '\''
+    }
+  , commaFirstOpts = {
+      quote: '\''
     , style: 'comma-first'
     , indent: 2
   }
@@ -45,8 +47,8 @@ function run(t, fixture, opts) {
   t.end()
 }
 
-[ [ 'upgrades code with define wrapper with multiple dependencies'            , 'define-multiline' ]
-, [ 'upgrades code with define wrapper with multiple dependencies using comma style'    , 'define-multiline-comma', commaOpts ]
+[ [ 'upgrades code with define wrapper with multiple dependencies', 'define-multiline' ]
+, [ 'upgrades code with define wrapper with multiple dependencies using comma style', 'define-multiline-comma', commaOpts ]
 , [ 'upgrades code with define wrapper with multiple dependencies using comma-first style'    , 'define-multiline-comma-first', commaFirstOpts ]
 , [ 'upgrades code with define wrapper function definition before wrapper'    , 'define-function-before' ]
 , [ 'upgrades code with define wrapper function definition after wrapper'     , 'define-function-after' ]
