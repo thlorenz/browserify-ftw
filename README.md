@@ -134,7 +134,7 @@ Update the following file to match the style of your project and save it next to
 ```js
 module.exports = {
     quote           :  '\''         // '\'' or '"'
-  , style           :  'var'        // 'var', 'comma', 'comma-first' (so far only var is supported)
+  , style           :  'var'        // 'var', 'comma', 'comma-first'
   , indent          :  2            // the tab size used in your project
   , directoryFilter :  null         // not supported yet
   , fileFilter      :  '.js'        // the extension of the file to upgrade
