@@ -27,7 +27,6 @@ Therefore you should **check all your files into source control** and best creat
 
 - cannot resolve template files (maybe a good time to switch to [precompiled
   templates](https://github.com/wycats/handlebars.js/#precompiling-templates)) ;)
-- only `'var foo = require('foo');'` require style supported at this point
 - `directoryFilter` not yet supported
 
 ## step by step examples
