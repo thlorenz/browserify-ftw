@@ -50,6 +50,7 @@ function run(t, fixture, opts) {
 [ [ 'upgrades code with define wrapper with multiple dependencies', 'define-multiline' ]
 , [ 'upgrades code with define wrapper with multiple dependencies using comma style', 'define-multiline-comma', commaOpts ]
 , [ 'upgrades code with define wrapper with multiple dependencies using comma-first style'    , 'define-multiline-comma-first', commaFirstOpts ]
+, [ 'upgrades code with define wrapper with no dependencies', 'define-nodeps' ]
 , [ 'upgrades code with define wrapper function definition before wrapper'    , 'define-function-before' ]
 , [ 'upgrades code with define wrapper function definition after wrapper'     , 'define-function-after' ]
 , [ 'upgrades code with define wrapper that returns a multiline object'       , 'define-return-multiline-object' ]
