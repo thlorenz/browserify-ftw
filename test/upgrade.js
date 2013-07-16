@@ -57,6 +57,8 @@ function run(t, fixture, opts) {
 , [ 'upgrades code with define wrapper function definition after wrapper'     , 'define-function-after' ]
 , [ 'upgrades code with define wrapper that returns a multiline object'       , 'define-return-multiline-object' ]
 , [ 'upgrades code with require wrapper that has dependencies but no params'  , 'require-noparams' ]
+, [ 'upgrades code with require wrapper that has dependencies but no params using comma style options'  , 'require-noparams', commaOpts ]
+, [ 'upgrades code with require wrapper that has dependencies but no params using comma-first style options'  , 'require-noparams', commaFirstOpts ]
 ].forEach(function (testcase) {
     test('\n' + testcase[0], function (t) {
       run(t, testcase[1], testcase[2])
