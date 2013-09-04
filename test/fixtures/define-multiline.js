@@ -7,7 +7,7 @@ define(
   , 'blog-content'
   , 'about-content'
   ], 
-function (director, github, blog, about, githubContent, blogContent, aboutContent) { 
+function (director, github, blog, about, githubContent) {
   var currentNav = null
     , navs = {
           github        :  github.init
