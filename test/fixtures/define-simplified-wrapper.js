@@ -6,6 +6,7 @@ define(function (require) {
   var githubContent = require('github-content');
   var blogContent = require('blog-content');
   var aboutContent = require('about-content');
+  var foo;
 
   var currentNav = null
     , navs = {

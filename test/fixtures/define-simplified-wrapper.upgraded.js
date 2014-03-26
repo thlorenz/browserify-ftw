@@ -5,6 +5,7 @@ var about = require('./resolved/about-index');
 var githubContent = require('./resolved/github-content');
 var blogContent = require('./resolved/blog-content');
 var aboutContent = require('./resolved/about-content');
+var foo;
 
 var currentNav = null
   , navs = {

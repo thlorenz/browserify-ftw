@@ -30,52 +30,50 @@ function inspect(obj, depth) {
  return require('util').inspect(obj, false, depth || 5, true);
 }
 
-~function () {
-  var expected = { 
-    shims: [ { exports: '$',
-        alias: 'jquery',
-        path: 'vendor/jquery-1.8.2' },
-      { deps: [ 'underscore', 'jquery' ],
-        exports: 'Backbone',
-        alias: 'backbone',
-        path: 'vendor/backbone' },
-      { deps: [ 'backbone' ],
-        alias: 'backbone.stickit',
-        path: 'vendor/backbone.stickit-mod' },
-      { exports: 'Handlebars',
-        alias: 'handlebars', 
-        pathMissing: true,
-        path: prepareShims.pathMissingFor('handlebars') 
-      } ],
-    missingPaths: [ 'handlebars' ] }
-  
-  test('requireJS dir and bundleJS dir is the same and given paths:\n' + inspect(paths) + '\nand shims:\n' + inspect(shims) + '\nit returns:\n' + inspect(expected), function (t) {
-    t.deepEquals(prepareShims(shims, paths, '.', '.'), expected)
-    t.end()
-  })
-}();
+function runTest(ctx) {
+  ~function () {
+    var expected = { 
+      shims: [ { exports: '$',
+          alias: 'jquery',
+          path: ctx.paths[0] },
+        { deps: [ 'underscore', 'jquery' ],
+          exports: 'Backbone',
+          alias: 'backbone',
+          path: ctx.paths[1] },
+        { deps: [ 'backbone' ],
+          alias: 'backbone.stickit',
+          path: ctx.paths[2] },
+        { exports: 'Handlebars',
+          alias: 'handlebars', 
+          pathMissing: true,
+          path: prepareShims.pathMissingFor('handlebars') 
+        } ],
+      missingPaths: [ 'handlebars' ] }
+    
+    test(ctx.label + ':\n' + inspect(paths) + '\nand shims:\n' + inspect(shims) + '\nit returns:\n' + inspect(expected), function (t) {
+      t.deepEquals(prepareShims(shims, paths, '.', ctx.buildPath), expected)
+      t.end()
+    })
+  }();
+}
 
-~function () {
-  var expected = { 
-    shims: [ { exports: '$',
-        alias: 'jquery',
-        path: '../vendor/jquery-1.8.2' },
-      { deps: [ 'underscore', 'jquery' ],
-        exports: 'Backbone',
-        alias: 'backbone',
-        path: '../vendor/backbone' },
-      { deps: [ 'backbone' ],
-        alias: 'backbone.stickit',
-        path: '../vendor/backbone.stickit-mod' },
-      { exports: 'Handlebars',
-        alias: 'handlebars', 
-        pathMissing: true,
-        path: prepareShims.pathMissingFor('handlebars') 
-      } ],
-    missingPaths: [ 'handlebars' ] }
-  
-  test('requireJS is "." and buildJS dir is "./build" the same and given paths:\n' + inspect(paths) + '\nand shims:\n' + inspect(shims) + '\nit returns:\n' + inspect(expected), function (t) {
-    t.deepEquals(prepareShims(shims, paths, '.', './build'), expected)
-    t.end()
-  })
-}();
+var tests = [{
+    label: 'requireJS dir and bundleJS dir is the same and given paths'
+  , paths: [
+      'vendor/jquery-1.8.2'
+    , 'vendor/backbone'
+    , 'vendor/backbone.stickit-mod'
+    ]
+  , buildPath: "."
+},{
+    label: 'requireJS is "." and buildJS dir is "./build" the same and given paths'
+  , paths: [
+      '../vendor/jquery-1.8.2'
+    , '../vendor/backbone'
+    , '../vendor/backbone.stickit-mod'
+    ]
+  , buildPath: "./build"
+}];
+
+tests.forEach(runTest);
+
