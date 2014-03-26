@@ -50,6 +50,7 @@ function run(t, fixture, opts) {
 [ [ 'upgrades code with define wrapper with multiple dependencies', 'define-multiline' ]
 , [ 'upgrades code with define commonjs simplified wrapper with multiple dependencies', 'define-simplified-wrapper' ]
 , [ 'upgrades code with define commonjs module-exports wrapper with multiple dependencies', 'define-module-export-wrapper' ]
+, [ 'upgrades code with define commonjs module-exports wrapper with no dependencies', 'define-no-requires']
 , [ 'upgrades code with define wrapper with multiple dependencies using comma style', 'define-multiline-comma', commaOpts ]
 , [ 'upgrades code with define wrapper with multiple dependencies using comma-first style'    , 'define-multiline-comma-first', commaFirstOpts ]
 , [ 'upgrades code with define wrapper function definition before wrapper'    , 'define-function-before' ]
