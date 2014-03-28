@@ -3,62 +3,55 @@
 
 var test      =  require('tap').test
   , fs        =  require('fs')
-  , path = require('path')
-  , cardinal  =  require('cardinal')
+  , path      =  require('path')
+  , highlight =  require('cardinal').highlight
   , makeBuild =  require('../lib/make-build')
-  , generated = path.join(__dirname, 'fixtures/generated') 
 
 function inspect(obj, depth) {
   return require('util').inspect(obj, false, depth || 5, true);
 }
 
-~function () {
-  var config = {
-      quote: '\''
-    , indent: 2
-  }
-  , entryPath = './js/entry.js'
+function nl(label) {
+  return '\n' + label + ":\n"
+}
 
-  var expected = fs.readFileSync(path.join(generated, 'without-shims.js'), 'utf-8')
+function runTest(ctx) {
+  ~function () {
+    var entryPath = './js/entry.js'
+      , expected = fs.readFileSync(path.join(__dirname, 'fixtures/generated', ctx.fixture), 'utf-8');
 
-  test('\nwhen generating browserify build when no modules need to be shimmed:\n' + inspect(config) + '\nGenerates:\n' + cardinal.highlight(expected),  function (t) {
-    t.equals(makeBuild(config, './build/bundle.js', entryPath), expected)
-    t.end();
-  });
-}();
+    test(nl(ctx.label) + inspect(ctx.config) + nl("Generates") + highlight(expected),  function (t) {
+      t.equals(makeBuild(ctx.config, './build/bundle.js', entryPath), expected)
+      t.end();
+    });
+  }()
+}
 
-~function () {
-  var config = {
-      quote: '"'
-    , indent: 4
-  }
-  , entryPath = './js/entry.js'
-
-  var expected = fs.readFileSync(path.join(generated, 'without-shims-tabsize-4-and-doublequotes.js'), 'utf-8')
-
-  test('\nwhen generating browserify build when no modules need to be shimmed::\n' + inspect(config) + '\nGenerates:\n' + cardinal.highlight(expected),  function (t) {
-    t.equals(makeBuild(config, './build/bundle.js', entryPath), expected)
-    t.end();
-  });
-}();
-
-~function () {
-  var shims = [ 
+var tests = [{
+  label: 'when generating browserify build when no modules need to be shimmed',
+  config: {
+    quote: '\''
+  , indent: 2
+  },
+  fixture: 'without-shims.js'
+},{
+  label: 'when generating browserify build when no modules need to be shimmed',
+  config: {
+    quote: '"'
+  , indent: 4
+  },
+  fixture: 'without-shims-tabsize-4-and-doublequotes.js'
+},{
+  label: 'when generating browserify build when two modules need to be shimmed',
+  config: {
+    quote: '\''
+  , indent: 2
+  , shims: [ 
       { alias: 'jquery', path: './js/vendor/jquery.js', exports: '$' }
     , { alias: 'underscore', path: './js/vendor/underscore.js', exports: null }
-  ];
+  ]
+  },
+  fixture: 'with-two-shims.js'
+}];
 
-  var config = {
-      quote: '\''
-    , indent: 2
-    , shims: shims
-  }
-  , entryPath = './js/entry.js'
-
-  var expected = fs.readFileSync(path.join(generated, 'with-two-shims.js'), 'utf-8')
-
-  test('\nwhen generating browserify build when two modules need to be shimmed:\n' + inspect(config) + '\nGenerates:\n' + cardinal.highlight(expected),  function (t) {
-    t.equals(makeBuild(config, './build/bundle.js', entryPath), expected)
-    t.end();
-  });
-}()
+tests.forEach(runTest);
