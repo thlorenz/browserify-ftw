@@ -30,7 +30,7 @@
     "npmlog": "0.0.2",
     "optimist": "~0.3.5",
     "cardinal": "~0.3.1",
-    "estraverse": "^1.5.0"
+    "estraverse": "~1.5.0"
   },
   "devDependencies": {
     "tap": "~0.3.3",
