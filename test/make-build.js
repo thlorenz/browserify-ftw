@@ -12,7 +12,7 @@ function inspect(obj, depth) {
 }
 
 function nl(label) {
-  return '\n' + label + ":\n"
+  return '\n' + label + ':\n'
 }
 
 function runTest(ctx) {
@@ -20,7 +20,7 @@ function runTest(ctx) {
     var entryPath = './js/entry.js'
       , expected = fs.readFileSync(path.join(__dirname, 'fixtures/generated', ctx.fixture), 'utf-8');
 
-    test(nl(ctx.label) + inspect(ctx.config) + nl("Generates") + highlight(expected),  function (t) {
+    test(nl(ctx.label) + inspect(ctx.config) + nl('Generates') + highlight(expected),  function (t) {
       t.equals(makeBuild(ctx.config, './build/bundle.js', entryPath), expected)
       t.end();
     });

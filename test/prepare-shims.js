@@ -64,7 +64,7 @@ var tests = [{
     , 'vendor/backbone'
     , 'vendor/backbone.stickit-mod'
     ]
-  , buildPath: "."
+  , buildPath: '.'
 },{
     label: 'requireJS is "." and buildJS dir is "./build" the same and given paths'
   , paths: [
@@ -72,7 +72,7 @@ var tests = [{
     , '../vendor/backbone'
     , '../vendor/backbone.stickit-mod'
     ]
-  , buildPath: "./build"
+  , buildPath: './build'
 }];
 
 tests.forEach(runTest);
