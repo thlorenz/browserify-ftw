@@ -24,13 +24,13 @@
   "author": "Thorsten Lorenz <thlorenz@gmx.de> (thlorenz.com)",
   "license": "MIT",
   "dependencies": {
+    "cardinal": "~0.3.1",
     "esprima": "~1.0.2",
+    "estraverse": "~1.5.0",
     "map-stream": "0.0.1",
-    "readdirp": "~0.2.1",
     "npmlog": "0.0.2",
     "optimist": "~0.3.5",
-    "cardinal": "~0.3.1",
-    "estraverse": "~1.5.0"
+    "readdirp": "~1.0.1"
   },
   "devDependencies": {
     "tap": "~0.3.3",
