@@ -8,11 +8,15 @@ Think you are stuck with requirejs AMD format for your client side code because 
 Don't you fret, `browserify-ftw` is here to help. For most projects it will be able to perform an upgrade it to a point
 where it can be browserified immediately, for all others it should get you at least 90% there.
 
-## warning
+## warnings
 
 Running browserify-ftw on your project **will rewrite the original files!**
 
 Therefore you should **check all your files into source control** and best create a new branch before running it in order to be able to revert to the original state in case something goes wrong.
+
+The **generated `shim.js` is incompatible with the newest browserify and browserify-shim**. Therefore it should only be
+used as guideline to add the proper config to the `package.json` as explained
+[here](https://github.com/thlorenz/browserify-shim#b-config-inside-packagejson-with-aliases).
 
 ## features
 
