@@ -150,7 +150,7 @@ module.exports = {
 browserify-ftw has a very simple command line interface. Usage is available via `browserify-ftw`:
 
 ```sh
-➜  browserify-ftw.js  
+➜  browserify-ftw  
 Options:
   -r, --requirejs  path to requirejs-config.js file                                             [required]
   -c, --config     path to config to be used for the refactoring                                [default: (built in refactor config)]
