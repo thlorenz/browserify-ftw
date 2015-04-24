@@ -7,11 +7,7 @@ var test = require('tap').test
   , cardinal = require('cardinal')
   , upgrade = require('../lib/upgrade')
   , fixtures = path.join(__dirname, 'fixtures')
-  , defOpts = {
-      quote: '\''
-    , style: 'var'
-    , indent: 2
-    }
+  , defOpts = require('../lib/refactor-config')
   , commaOpts = {
       quote: '\''
     , style: 'comma'
@@ -21,12 +17,6 @@ var test = require('tap').test
       quote: '\''
     , style: 'comma-first'
     , indent: 2
-  }
-  , moveStrictTrueOpts = {
-      quote: '\''
-    , style: 'var'
-    , indent: 2
-    , moveStrict: true
   }
   , moveStrictFalseOpts = {
       quote: '\''
@@ -70,12 +60,12 @@ function run(t, fixture, opts) {
 , [ 'upgrades code with define wrapper function definition after wrapper'                  , 'define-function-after' ]
 , [ 'upgrades code with define wrapper that returns a multiline object'                    , 'define-return-multiline-object' ]
 , [ 'upgrades code with require wrapper that has dependencies but no params'               , 'require-noparams' ]
-, [ 'upgrades code with use strict statement at top of file'                               , 'use-strict', moveStrictTrueOpts ]
+, [ 'upgrades code with use strict statement at top of file'                               , 'use-strict' ]
 , [ 'upgrades code with use strict statement without moving'                               , 'use-strict-not-moved', moveStrictFalseOpts ]
-, [ 'upgrades code with use strict statement in nested function'                           , 'use-strict-nested-not-moved', moveStrictTrueOpts ]
-, [ 'upgrades code with use strict in the middle of the module'                            , 'use-strict-in-middle', moveStrictTrueOpts ]
-, [ 'upgrades code with use strict at end of the module'                                   , 'use-strict-at-bottom', moveStrictTrueOpts ]
-, [ 'upgrades code with use strict without semicolon'                                      , 'use-strict-without-semicolon', moveStrictTrueOpts ]
+, [ 'upgrades code with use strict statement in nested function'                           , 'use-strict-nested-not-moved' ]
+, [ 'upgrades code with use strict in the middle of the module'                            , 'use-strict-in-middle' ]
+, [ 'upgrades code with use strict at end of the module'                                   , 'use-strict-at-bottom' ]
+, [ 'upgrades code with use strict without semicolon'                                      , 'use-strict-without-semicolon' ]
 ].forEach(function (testcase) {
     test('\n' + testcase[0], function (t) {
       run(t, testcase[1], testcase[2])
