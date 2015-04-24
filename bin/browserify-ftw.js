@@ -2,11 +2,14 @@
 'use strict';
 
 var util    =  require('util')
-  , fs = require('fs')
+  , fs      =  require('fs')
   , path    =  require('path')
   , log     =  require('npmlog')
+  , xtend   =  require('xtend')
   , bftw    =  require('../browserify-ftw')
   , options
+  , defaultOptionsPath = path.resolve('../lib/refactor-config.js')
+  , defaultOptions= require(defaultOptionsPath)
   , argv = require('optimist')
       .options('r', {
           alias    :  'requirejs'
@@ -16,7 +19,7 @@ var util    =  require('util')
       .options('c', {
           alias    :  'config'
         , describe :  'path to config to be used for the refactoring\n(https://github.com/thlorenz/browserify-ftw#preparing-a-custom-refactor-config)'
-        , default  :  path.join(__dirname, '../lib/refactor-config.js')
+        , default  :  defaultOptionsPath
       })
       .options('b', {
           alias    :  'build'
@@ -71,9 +74,7 @@ try {
 }
 
 try {
-  options = require(fullConfig);
-  // Poor man's validation
-  if (!options.quote || !options.style) throw new Error(fullConfig + 'is not a valid refactor config');
+  options = xtend(defaultOptions, require(fullConfig));
 } catch (e) {
   log.error('browserify-ftw', 'While reading refactor-config:\n\t', e.message);
   process.exit(1);
