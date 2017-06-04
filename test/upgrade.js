@@ -66,6 +66,7 @@ function run(t, fixture, opts) {
 , [ 'upgrades code with use strict in the middle of the module'                            , 'use-strict-in-middle' ]
 , [ 'upgrades code with use strict at end of the module'                                   , 'use-strict-at-bottom' ]
 , [ 'upgrades code with use strict without semicolon'                                      , 'use-strict-without-semicolon' ]
+, [ 'upgrades code with es6 styles'                                                        , 'es6' ]
 ].forEach(function (testcase) {
     test('\n' + testcase[0], function (t) {
       run(t, testcase[1], testcase[2])

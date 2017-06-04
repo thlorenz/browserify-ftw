@@ -7,5 +7,5 @@ define([ 'director' ], function (director) {
       github        :  github.init
     , blog          :  blog.init
     , about         :  about.init
-  }
+  };
 })

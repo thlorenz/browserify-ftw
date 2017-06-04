@@ -8,4 +8,4 @@ module.exports = {
     github        :  github.init
   , blog          :  blog.init
   , about         :  about.init
-}
+};
