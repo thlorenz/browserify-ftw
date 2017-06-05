@@ -8,7 +8,7 @@ var util    =  require('util')
   , xtend   =  require('xtend')
   , bftw    =  require('../browserify-ftw')
   , options
-  , defaultOptionsPath = path.resolve('../lib/refactor-config.js')
+  , defaultOptionsPath = path.join(__dirname, '../lib/refactor-config.js')
   , defaultOptions= require(defaultOptionsPath)
   , argv = require('optimist')
       .options('r', {
