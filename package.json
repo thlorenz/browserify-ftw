@@ -1,6 +1,6 @@
 {
   "name": "browserify-ftw",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Upgrade your app from requireJS AMD to commonJS module format via an automated refactor step in order to browserify it.",
   "main": "browserify-ftw.js",
   "scripts": {
