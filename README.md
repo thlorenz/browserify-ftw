@@ -1,5 +1,7 @@
 # browserify-ftw [![build status](https://secure.travis-ci.org/thlorenz/browserify-ftw.png)](http://next.travis-ci.org/thlorenz/browserify-ftw)
 
+<a href="https://www.patreon.com/bePatron?u=8663953"><img alt="become a patron" src="https://c5.patreon.com/external/logo/become_a_patron_button.png" height="35px"></a>
+
 Discovered [browserify](https://github.com/substack/node-browserify) too late and/or want to share code on server
 and client?
 
